@@ -29,8 +29,9 @@ sloeber.ino.cpp.o: ..\sloeber.ino.cpp \
  D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\cores\arduino/Udp.h \
  D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\libraries\SPI\src/SPI.h \
  D:\code\Neu\AController\AquariumSteuerung\DallasTemperature/DallasTemperature.h \
- ..\Definitions.h ..\Display.h ..\Light.h ..\Heater.h ..\Pump.h \
- ..\DateTime.h D:\code\Neu\AController\AquariumSteuerung\DS3231/DS3231.h \
+ ..\Definitions.h ..\Display.h ..\DallasTemperature\DallasTemperature.h \
+ ..\Light.h ..\Heater.h ..\Pump.h ..\DateTime.h \
+ D:\code\Neu\AController\AquariumSteuerung\DS3231/DS3231.h \
  ..\AquariumSteuerung.ino
 
 D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\cores\arduino/Arduino.h:
@@ -96,6 +97,8 @@ D:\code\Neu\AController\AquariumSteuerung\DallasTemperature/DallasTemperature.h:
 ..\Definitions.h:
 
 ..\Display.h:
+
+..\DallasTemperature\DallasTemperature.h:
 
 ..\Light.h:
 

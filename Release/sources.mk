@@ -38,14 +38,6 @@ SUBDIRS := \
 .metadata/.plugins/org.eclipse.cdt.managedbuilder.core \
 . \
 DS3231 \
-DS3231/examples/Arduino/DS3231_Serial_Easy \
-DS3231/examples/Arduino/DS3231_Serial_Hard \
-DS3231/examples/Arduino/DS3231_Temperature \
-DS3231/examples/Arduino/DS3231_UnixTime \
-DS3231/examples/chipKit/DS3231_Serial_Easy \
-DS3231/examples/chipKit/DS3231_Serial_Hard \
-DS3231/examples/chipKit/DS3231_Temperature \
-DS3231/examples/chipKit/DS3231_UnixTime \
 DallasTemperature \
 NTPClient-3.1.0 \
 NTPClient-3.1.0/examples/Advanced \
@@ -56,11 +48,12 @@ libraries/Ethernet/src \
 libraries/Ethernet/src/utility \
 libraries/HID/src \
 libraries/Keyboard/src \
-libraries/LiquidCrystal/src \
 libraries/LiquidCrystal_I2C-1.1.2 \
 libraries/SPI/src \
 libraries/WiFi/src \
 libraries/WiFi/src/utility \
 libraries/Wire/src \
 libraries/Wire/src/utility \
+LiquidCrystal \
+libraries/LiquidCrystal/src \
 

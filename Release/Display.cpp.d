@@ -16,6 +16,7 @@ Display.cpp.o: ..\Display.cpp ..\Display.h \
  D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\cores\arduino/Print.h \
  D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\libraries\Wire\src/Wire.h \
  D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\cores\arduino/Stream.h \
+ ..\DallasTemperature\DallasTemperature.h \
  D:\code\Neu\AController\AquariumSteuerung\DS3231/ds3231.h \
  D:\code\Neu\AController\AquariumSteuerung\DS3231/hardware/avr/HW_AVR_defines.h \
  ..\Definitions.h
@@ -55,6 +56,8 @@ D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\cores\arduino/Prin
 D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\libraries\Wire\src/Wire.h:
 
 D:\sloeber\arduinoPlugin\packages\arduino\hardware\avr\1.6.21\cores\arduino/Stream.h:
+
+..\DallasTemperature\DallasTemperature.h:
 
 D:\code\Neu\AController\AquariumSteuerung\DS3231/ds3231.h:
 

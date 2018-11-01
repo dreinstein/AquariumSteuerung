@@ -57,11 +57,6 @@
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/Keyboard/1.0.1</locationURI>
 		</link>
 		<link>
-			<name>libraries/LiquidCrystal</name>
-			<type>2</type>
-			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/LiquidCrystal/1.0.7</locationURI>
-		</link>
-		<link>
 			<name>libraries/LiquidCrystal_I2C-1.1.2</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/LiquidCrystal_I2C-1.1.2/1.1.2</locationURI>

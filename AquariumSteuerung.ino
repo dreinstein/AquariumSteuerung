@@ -1,7 +1,6 @@
 
 
 #include "Arduino.h"
-//#include <LiquidCrystal.h> //LCD-Bibliothek laden
 
 #include <OneWire.h>
 #include <LiquidCrystal_I2C.h>
