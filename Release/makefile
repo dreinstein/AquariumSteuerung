@@ -15,7 +15,7 @@ RM := del
 -include libraries\WiFi\src\subdir.mk
 -include libraries\SPI\src\subdir.mk
 -include libraries\LiquidCrystal_I2C-1.1.2\subdir.mk
--include libraries\LiquidCrystal\subdir.mk
+-include libraries\LiquidCrystal\src\subdir.mk
 -include libraries\Keyboard\src\subdir.mk
 -include libraries\HID\src\subdir.mk
 -include libraries\Ethernet\src\utility\subdir.mk
@@ -76,7 +76,7 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 AR += \
-C:\AController\AquariumSteuerung\Release\arduino.ar \
+D:\code\Neu\AController\AquariumSteuerung\Release\arduino.ar \
 
 ELF += \
 AquariumSteuerung.elf \
@@ -92,19 +92,19 @@ all: AquariumSteuerung
 AquariumSteuerung: $(HEX)
 	@echo 'Building target: $@'
 	@echo 'Printing size:'
-	"C:\EclipseArduino\sloeber\/arduinoPlugin/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-size" -A "C:/AController/AquariumSteuerung/Release/AquariumSteuerung.elf"
+	"D:\sloeber\/arduinoPlugin/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-size" -A "D:/code/Neu/AController/AquariumSteuerung/Release/AquariumSteuerung.elf"
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-C:\AController\AquariumSteuerung\Release\arduino.ar: $(AR_OBJ)
+D:\code\Neu\AController\AquariumSteuerung\Release\arduino.ar: $(AR_OBJ)
 	@echo 'Starting archiver'
-	"C:\EclipseArduino\sloeber\/arduinoPlugin/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-gcc-ar" rcs    C:/AController/AquariumSteuerung/Release/arduino.ar $(AR_OBJ)
+	"D:\sloeber\/arduinoPlugin/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-gcc-ar" rcs    D:/code/Neu/AController/AquariumSteuerung/Release/arduino.ar $(AR_OBJ)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 AquariumSteuerung.elf: $(LINK_OBJ) $(AR)
 	@echo 'Starting combiner'
-	"C:\EclipseArduino\sloeber\/arduinoPlugin/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-gcc" -Wall -Wextra -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -o "C:\AController\AquariumSteuerung/Release/AquariumSteuerung.elf"   $(LINK_OBJ)   C:/AController/AquariumSteuerung/Release/arduino.ar  "-LC:\AController\AquariumSteuerung/Release" -lm
+	"D:\sloeber\/arduinoPlugin/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/bin/avr-gcc" -Wall -Wextra -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p -o "D:\code\Neu\AController\AquariumSteuerung/Release/AquariumSteuerung.elf"   $(LINK_OBJ)   D:/code/Neu/AController/AquariumSteuerung/Release/arduino.ar  "-LD:\code\Neu\AController\AquariumSteuerung/Release" -lm
 	@echo 'Finished building: $@'
 	@echo ' '
 
