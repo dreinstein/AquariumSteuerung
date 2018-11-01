@@ -31,8 +31,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/SPI/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/NTPClient-3.1.0}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/WiFi/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/Keyboard}&quot;"/>
@@ -40,6 +38,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/HID}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/HID/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal_I2C-1.1.2}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/OneWire}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.2041198576" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -54,8 +53,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/SPI/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/NTPClient-3.1.0}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/WiFi/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/Keyboard}&quot;"/>
@@ -63,6 +60,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/HID}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/HID/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal_I2C-1.1.2}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/OneWire}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.484692547" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -77,8 +75,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/SPI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/SPI/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/NTPClient-3.1.0}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/WiFi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/WiFi/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/Keyboard}&quot;"/>
@@ -86,6 +82,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/HID}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/HID/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/LiquidCrystal_I2C-1.1.2}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/AquariumSteuerung/libraries/OneWire}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.1296843314" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -96,7 +93,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="libraries/?*/**/test*/**|libraries**/._*|libraries/?*/**/third-party/**|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/c*/?*|libraries/?*/d*/?*|libraries/?*/D*/?*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+						<entry excluding="libraries/OneWire/util|libraries/?*/**/test*/**|libraries**/._*|libraries/?*/**/third-party/**|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/c*/?*|libraries/?*/d*/?*|libraries/?*/D*/?*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
