@@ -110,16 +110,7 @@ float Display::getWaterTemperature()
 }
 
 
-/*void Display::setAirTemp()
-{
-	lcd->setCursor(CURSERPOSTEMPSTRING,0);
-	lcd->clear();
-	lcd->print(stringTempValueAir);
-	lcd->setCursor(CURSERPOSTEMPVALUE,0);
-	lcd->print(rtc->getTemp());
-	lcd->setCursor(CURSERPOSCSTRING, 0);
-	lcd->print("C");
-}*/
+
 
 
 
