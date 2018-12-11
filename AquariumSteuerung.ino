@@ -122,6 +122,7 @@ void setup()
 
 //	Serial.println("synchronise");
 	remote->synchronise();
+	remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
 }
 
 
@@ -181,8 +182,12 @@ void loop()
 	{
 		remote->synchronise();
 	}
-	remote->getCharFromEthernet(&eserver);
-	remote->sentToWebServer(rtc.getTimeStr(),light->getStatus(),pump->getStatus(),heater->getStatus());
+	//remote->getFromPort23();
+	//remote->getFromPort80();
+	if(TO_ACTUALISE(refresh,ACTUALISE_TIME_MULTIPLIER))
+	{
+		remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
+	}
 }
 
 

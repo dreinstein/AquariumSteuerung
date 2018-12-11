@@ -20,15 +20,23 @@
 
 class Remote {
 public:
+	enum Port
+	{
+		Port23 = 23,
+		Port80 = 80
+	};
+
 	Remote(DS3231* _rtc,DallasTemperature *_tempSensor);
 	~Remote();
-	void sentToWebServer(char* timeStr,String lightStatus, String pumpStatus, String heaterStatus);
-	void getCharFromEthernet(EthernetServer* eServer);
-	void remoteAction(String rString,EthernetClient *client);
-	void sendTemperaturToClient();
+	void sentToWebServer(String lightStatus, String pumpStatus, String heaterStatus);
+	void getFromPort80();
+	void getFromPort23();
+
+	void sendTemperature(EthernetClient *client, Port port);
 	bool synchronise();
 private:
 	void sendoutputPinState(int pin,EthernetClient *client);
+	void readTillEnd(EthernetClient *client);
 	DS3231 *rtc;
 	class DateTime* dateTime;
 	DallasTemperature *tempSensors;
@@ -36,11 +44,15 @@ private:
 
 	bool serviceMode;
 
+	bool remoteAction(String rString,EthernetClient *client, Port port);
+	void sendTemperaturePort23(EthernetClient *client);
+	void sendTemperaturePort80(EthernetClient *client);
+
 	const String WINTER  = "winter";
 	const String SOMMER = "sommer";
 	const String SYNC = "sync";
 	const String SERVICE = "service";
-	const String TEMP = "temperature";
+	const String TEMP = "temperatur";
 	const String NORMAL = "normal";
 	//const String NO = "no";
 	const String DPIN1 = "pin1";
