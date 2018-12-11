@@ -184,7 +184,7 @@ void loop()
 	}
 	//remote->getFromPort23();
 	//remote->getFromPort80();
-	if(TO_ACTUALISE(refresh,ACTUALISE_TIME_MULTIPLIER))
+	if(TO_ACTUALISE(refresh,ACTUALISE_REMOTE_MULTIPLIER))
 	{
 		remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
 	}
