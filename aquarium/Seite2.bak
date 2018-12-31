@@ -1,0 +1,10 @@
+<?php
+$temp = $_GET["temperatur"];
+$db=mysql_connect("localhost","root","wutZ25Ba","aquarium");
+if(!$db)
+{
+	exit("Verbindungsfehler: ".mysqli_connect_error());
+}
+	$sql = insert into temperature (temperature) values (temp);
+	mysql_close($db);
+?>

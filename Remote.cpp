@@ -24,6 +24,7 @@
 	EthernetClient client;
 	IPAddress webServer(192, 168, 0, 2);
 	client.connect(webServer, 80);
+	Serial.println("setToWebServer");
 	if(client.connected()){
 		tempSensors->requestTemperatures();
 		Serial.println("WebClient connected, send data");
@@ -44,9 +45,10 @@
 	    client.print("'");
 		client.println(" HTTP/1.1");
 		client.println("Host: 192.168.0.22");
+		client.println("Connection: close");
 		client.println();
 	}
-	client.stop();
+	//client.stop();
 }
 
 void Remote::getFromPort80()
@@ -78,6 +80,7 @@ void Remote::getFromPort80()
 	    		Serial.println(remoteString);
 	    		abortReading = remoteAction(remoteString,&client, Port80);
 	    	}
+	    	remoteString="";
 	    	client.stop();
 	    //	Serial.println(remoteString);
 	    }
@@ -137,6 +140,7 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	int hour = rtc->getTime().hour;
 	if(rString == WINTER)
 	{
+		client->println("HTTP/1.1 205 OK");
 		hour = hour -1;
 		rtc->setTime(hour,rtc->getTime().min,rtc->getTime().sec);
 		Serial.println("set Wintertime");
@@ -145,6 +149,7 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	}
 	else if (rString == SOMMER)
 	{
+		client->println("HTTP/1.1 205 OK");
 		hour = hour +1;
 		rtc->setTime(hour,rtc->getTime().min,rtc->getTime().sec);
 		Serial.println("set Summertime");
@@ -153,32 +158,38 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	}
 	else if(rString == SYNC)
 	{
+		client->println("HTTP/1.1 205 OK");
 		synchronise();
 		return true;
 	}
 	else if(rString == SERVICE)
 	{
+		client->println("HTTP/1.1 205 OK");
 		serviceMode = true;
 		return true;
 	}
 	else if(rString == NORMAL)
 	{
+		client->println("HTTP/1.1 205 OK");
 		serviceMode = false;
 		return true;
 	}
 	else if(rString == TEMP)
 	{
+		client->println("HTTP/1.1 205 OK");
 		//client->stop();
 		sendTemperature(client,port);
 		return true;
 	}
 	else if(rString == DPIN1)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(1,client);
 		return true;
 	}
 	else if(rString == DPIN2)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(2,client);
 		return true;
 	}
@@ -189,52 +200,57 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	}
 	else if(rString == DPIN4)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(4,client);
 		return true;
 	}
 	else if(rString == DPIN5)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(5,client);
 		return true;
 	}
 	else if(rString == DPIN6)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(6,client);
 		return true;
 	}
 	else if(rString == DPIN7)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(7,client);
 		return true;
 	}
 	else if(rString == DPIN8)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(8,client);
 		return true;
 	}
 	else if(rString == DPIN9)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(9,client);
 		return true;
 	}
 	else if(rString == DPIN10)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(10,client);
 		return true;
 	}
 	else if(rString == DPIN11)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(11,client);
 		return true;
 	}
 	else if(rString == DPIN12)
 	{
+		client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(12,client);
 		return true;
-	}
-	else
-	{
-		return false;
 	}
 	return false;
 }
