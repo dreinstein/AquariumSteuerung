@@ -10,7 +10,7 @@
 
 #include <ds3231.h>
 
-// fixed Timesettings for overweek and weekend
+// default Timesettings for overweek and weekend
 #define TIMELIGHTON_FIRST_OVERWEEK   "07:00:00"
 #define TIMELIGHTOFF_FIRST_OVERWEEK  "12:00:00"
 #define TIMELIGHTON_SECOND_OVERWEEK  "13:00:00"
@@ -39,11 +39,21 @@ public:
 	void setLightOn();
 	void setLightOff();
 	String getStatus();
+	void setTiming(char* _timeLightOn_first_overWeek, char* _timeLightOff_first_overWeek, char* _timeLightOn_second_overWeek,
+			char*_timeLightOff_second_overWeek, char* _timeLightOn_first_weekEnd,char* _timeLightOff_first_weekEnd,
+			char* _timeLightOn_second_weekEnd, char* _timeLightOff_second_weekEnd);
 private:
 	LIGHT_STATUS isLightOn();
 	bool isWeekend();
 	DS3231  *rtc;
-
+	char* timeLightOn_first_overWeek;
+	char* timeLightOff_first_overWeek;
+	char* timeLightOn_second_overWeek;
+	char* timeLightOff_second_overWeek;
+	char* timeLightOn_first_weekEnd;
+	char* timeLightOff_first_weekEnd;
+	char* timeLightOn_second_weekEnd;
+	char* timeLightOff_second_weekEnd;
 
 
 	const char* saturday = "Sat";

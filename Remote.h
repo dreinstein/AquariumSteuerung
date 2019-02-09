@@ -14,6 +14,8 @@
 #include <DallasTemperature.h>
 #include "DateTime.h"
 
+class Light;
+
 
 
 
@@ -26,7 +28,7 @@ public:
 		Port80 = 80
 	};
 
-	Remote(DS3231* _rtc,DallasTemperature *_tempSensor);
+	Remote(DS3231* _rtc,DallasTemperature *_tempSensor, Light *_alight);
 	~Remote();
 	void sentToWebServer(String lightStatus, String pumpStatus, String heaterStatus);
 	void getFromPort80();
@@ -34,10 +36,12 @@ public:
 
 	void sendTemperature(EthernetClient *client, Port port);
 	bool synchronise();
+	void getTiming();
 private:
 	void sendoutputPinState(int pin,EthernetClient *client);
 	void readTillEnd(EthernetClient *client);
 	DS3231 *rtc;
+	Light *light;
 	class DateTime* dateTime;
 	DallasTemperature *tempSensors;
 	String remoteString;
@@ -47,6 +51,7 @@ private:
 	bool remoteAction(String rString,EthernetClient *client, Port port);
 	void sendTemperaturePort23(EthernetClient *client);
 	void sendTemperaturePort80(EthernetClient *client);
+	void Remote::setTiming(String timeString);
 
 	const String WINTER  = "winter";
 	const String SOMMER = "sommer";
@@ -67,6 +72,7 @@ private:
 	const String DPIN10 = "pin10";   // Pump
 	const String DPIN11 = "pin11";   // Heater
 	const String DPIN12 = "pin12";
+	const String ENDTIMING ="endTiming";
 
 
 };

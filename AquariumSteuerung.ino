@@ -106,12 +106,12 @@ void setup()
 	pinMode(ONOFFBUTTON,INPUT_PULLUP);
 	pinMode(TEMPSENSOR,INPUT);
 
-
-	display = new Display(&sensors,&lcd,&rtc);
 	light = new Light(&rtc);
+	remote = new Remote(&rtc,&sensors,light);
+	display = new Display(&sensors,&lcd,&rtc);
 	heater = new Heater();
 	pump = new Pump();
-	remote = new Remote(&rtc,&sensors);
+
 //	dateTime = new DateTime();
 
 	//rtc.setDate(28,10,2018);
@@ -123,6 +123,7 @@ void setup()
 //	Serial.println("synchronise");
 	remote->synchronise();
 	remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
+	remote->getTiming();
 }
 
 

@@ -7,11 +7,13 @@
 
 #include "Remote.h"
 #include <Ethernet.h>
+#include "Light.h"
 
 
- Remote::Remote(DS3231* _rtc, DallasTemperature *_tempSensor)
+ Remote::Remote(DS3231* _rtc, DallasTemperature *_tempSensor, Light* _light)
  {
 	 rtc = _rtc;
+	 light = _light;
 	 tempSensors = _tempSensor;
 	 dateTime = new DateTime();
 	 serviceMode = false;
@@ -58,6 +60,7 @@ void Remote::getFromPort80()
 	server.begin();
 	bool isConnected = false;
 	client = server.available();
+	Serial.println("try to connect to webserver port 80");
 
 	if (client.available())
 	{
@@ -79,8 +82,14 @@ void Remote::getFromPort80()
 	    		remoteString += type;
 	    		Serial.println(remoteString);
 	    		abortReading = remoteAction(remoteString,&client, Port80);
+	    		if(remoteString.length() > 200)
+	    		{
+	    			abortReading = true;
+
+	    		}
 	    	}
 	    	remoteString="";
+	    	client.println("HTTP/1.1 205 OK");
 	    	client.stop();
 	    //	Serial.println(remoteString);
 	    }
@@ -121,6 +130,21 @@ void Remote::getFromPort23()
 }
 
 
+void Remote::getTiming()
+{
+	EthernetClient client;
+	IPAddress webServer(192, 168, 0, 2);
+	client.connect(webServer, 80);
+	Serial.println("setToWebServer fetch Timing");
+	if(client.connected()){
+	client.print("GET /fetchTiming.php?");
+	client.println(" HTTP/1.1");
+	client.println("Host: 192.168.0.22");
+	client.println("Connection: close");
+	client.println();
+	client.stop();
+	}
+}
 
 bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 {
@@ -140,7 +164,6 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	int hour = rtc->getTime().hour;
 	if(rString == WINTER)
 	{
-		client->println("HTTP/1.1 205 OK");
 		hour = hour -1;
 		rtc->setTime(hour,rtc->getTime().min,rtc->getTime().sec);
 		Serial.println("set Wintertime");
@@ -149,7 +172,6 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	}
 	else if (rString == SOMMER)
 	{
-		client->println("HTTP/1.1 205 OK");
 		hour = hour +1;
 		rtc->setTime(hour,rtc->getTime().min,rtc->getTime().sec);
 		Serial.println("set Summertime");
@@ -158,38 +180,38 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	}
 	else if(rString == SYNC)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		synchronise();
 		return true;
 	}
 	else if(rString == SERVICE)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		serviceMode = true;
 		return true;
 	}
 	else if(rString == NORMAL)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		serviceMode = false;
 		return true;
 	}
 	else if(rString == TEMP)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		//client->stop();
 		sendTemperature(client,port);
 		return true;
 	}
 	else if(rString == DPIN1)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(1,client);
 		return true;
 	}
 	else if(rString == DPIN2)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(2,client);
 		return true;
 	}
@@ -200,56 +222,63 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	}
 	else if(rString == DPIN4)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(4,client);
 		return true;
 	}
 	else if(rString == DPIN5)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(5,client);
 		return true;
 	}
 	else if(rString == DPIN6)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(6,client);
 		return true;
 	}
 	else if(rString == DPIN7)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(7,client);
 		return true;
 	}
 	else if(rString == DPIN8)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(8,client);
 		return true;
 	}
 	else if(rString == DPIN9)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(9,client);
 		return true;
 	}
 	else if(rString == DPIN10)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(10,client);
 		return true;
 	}
 	else if(rString == DPIN11)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(11,client);
 		return true;
 	}
 	else if(rString == DPIN12)
 	{
-		client->println("HTTP/1.1 205 OK");
+		//client->println("HTTP/1.1 205 OK");
 		sendoutputPinState(12,client);
+		return true;
+	}
+	else if(rString.endsWith(ENDTIMING))
+	{
+		//client->println("HTTP/1.1 205 OK");
+		Serial.println("Timeing transfered");
+		setTiming(rString);
 		return true;
 	}
 	return false;
@@ -405,6 +434,67 @@ bool Remote::synchronise()
 	i = i+1;
 	}
 	return sync;
+}
+
+void Remote::setTiming(String timeString)
+{
+	String delimiter = "&";
+
+	char* ctimeLightOn_firstOverweek= new char[10];
+	char* ctimeLightOn_secondOverweek= new char[10];
+	char* ctimeLightOff_firstOverweek= new char[10];
+	char* ctimeLightOff_secondOverweek= new char[10];
+	char* ctimeLightOn_firstWeekend= new char[10];
+	char* ctimeLightOn_secondWeekend= new char[10];
+	char* ctimeLightOff_firstWeekend= new char[10];
+	char* ctimeLightOff_secondWeekend= new char[10];
+
+
+	int index_1 = timeString.indexOf(delimiter);
+	String str = timeString.substring(0,index_1);
+	str.toCharArray(ctimeLightOn_firstOverweek,10);
+
+	int index_2 = timeString.indexOf(delimiter, index_1+1);
+	str = timeString.substring(index_1+1,index_2);
+	str.toCharArray(ctimeLightOn_secondOverweek,10);
+
+	index_1 = timeString.indexOf(delimiter, index_2+1);
+	str = timeString.substring(index_2+1,index_1);
+	str.toCharArray(ctimeLightOff_firstOverweek,10);
+
+	index_2 = timeString.indexOf(delimiter, index_1+1);
+	str = timeString.substring(index_1+1,index_2);
+	str.toCharArray(ctimeLightOff_secondOverweek,10);
+
+	index_1 = timeString.indexOf(delimiter,index_2+1);
+	str = timeString.substring(index_2+1,index_1);
+	str.toCharArray(ctimeLightOn_firstWeekend,10);
+
+	index_2 = timeString.indexOf(delimiter, index_1+1);
+	str = timeString.substring(index_1+1,index_2);
+	str.toCharArray(ctimeLightOn_secondWeekend,10);
+
+	index_1 = timeString.indexOf(delimiter, index_2+1);
+	str = timeString.substring(index_2+1,index_1);
+	str.toCharArray(ctimeLightOff_firstWeekend,10);
+
+	index_2 = timeString.indexOf(delimiter, index_1+1);
+	str = timeString.substring(index_1+1,index_2);
+	str.toCharArray(ctimeLightOff_secondWeekend,10);
+
+	Serial.println(timeString);
+	Serial.println(ctimeLightOn_firstOverweek);
+	Serial.println(ctimeLightOn_secondOverweek);
+	Serial.println(ctimeLightOff_firstOverweek);
+	Serial.println(ctimeLightOff_secondOverweek);
+	Serial.println(ctimeLightOn_firstWeekend);
+	Serial.println(ctimeLightOn_secondWeekend);
+	Serial.println(ctimeLightOff_firstWeekend);
+	Serial.println(ctimeLightOff_secondWeekend);
+
+	light->setTiming(ctimeLightOn_firstOverweek, ctimeLightOff_firstOverweek, ctimeLightOn_secondOverweek, ctimeLightOff_secondOverweek,
+			ctimeLightOn_firstWeekend, ctimeLightOff_firstWeekend, ctimeLightOn_secondWeekend, ctimeLightOff_secondWeekend);
+
 }
 
 

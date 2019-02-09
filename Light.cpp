@@ -17,13 +17,35 @@
 Light::Light(DS3231  *_rtc) {
 	// TODO Auto-generated constructor stub
 	rtc = _rtc;
-
-
+	timeLightOn_first_overWeek = (char*)TIMELIGHTON_FIRST_OVERWEEK;
+	timeLightOff_first_overWeek = (char*)TIMELIGHTOFF_FIRST_OVERWEEK;
+	timeLightOn_second_overWeek = (char*)TIMELIGHTON_SECOND_OVERWEEK;
+	timeLightOff_second_overWeek = (char*)TIMELIGHTOFF_SECOND_OVERWEEK;
+	timeLightOn_first_weekEnd = (char*)TIMELIGHTON_FIRST_WEEKEND;
+	timeLightOff_first_weekEnd = (char*)TIMELIGHTOFF_FIRST_WEEKEND;
+	timeLightOn_second_weekEnd = (char*)TIMELIGHTON_SECOND_WEEKEND;
+	timeLightOff_second_weekEnd = (char*)TIMELIGHTOFF_SECOND_WEEKEND;
 }
 
 Light::~Light() {
 	// TODO Auto-generated destructor stub
 }
+
+void Light::setTiming(char* _timeLightOn_first_overWeek, char* _timeLightOff_first_overWeek, char* _timeLightOn_second_overWeek,
+		char*_timeLightOff_second_overWeek, char* _timeLightOn_first_weekEnd,char* _timeLightOff_first_weekEnd,
+		char* _timeLightOn_second_weekEnd, char* _timeLightOff_second_weekEnd)
+{
+	timeLightOn_first_overWeek = _timeLightOn_first_overWeek;
+	timeLightOff_first_overWeek = _timeLightOff_first_overWeek;
+	timeLightOn_second_overWeek = _timeLightOn_second_overWeek;
+	timeLightOff_second_overWeek = _timeLightOff_second_overWeek;
+	timeLightOn_first_weekEnd = _timeLightOn_first_weekEnd;
+	timeLightOff_first_weekEnd = _timeLightOff_first_weekEnd;
+	timeLightOn_second_weekEnd = _timeLightOn_second_weekEnd;
+	timeLightOff_second_weekEnd = _timeLightOff_second_weekEnd;
+
+}
+
 
 void Light::setLighOnOff()
 {
@@ -86,22 +108,33 @@ LIGHT_STATUS Light::isLightOn()
 
 	if(isWeekend())
 	{
-		timeLightOn_first = (char*)TIMELIGHTON_FIRST_WEEKEND;
-		timeLightOff_first = (char*)TIMELIGHTOFF_FIRST_WEEKEND;
-		timeLightOn_second = (char*)TIMELIGHTON_SECOND_WEEKEND;
-		timeLightOff_second = (char*)TIMELIGHTOFF_SECOND_WEEKEND;
+		timeLightOn_first = timeLightOn_first_weekEnd;
+		timeLightOff_first = timeLightOff_first_weekEnd;
+		timeLightOn_second = timeLightOn_second_weekEnd;
+		timeLightOff_second = timeLightOff_second_weekEnd;
 
-		//		Serial.print("TimelineOff    ");
-			//	Serial.println(timeLightOff);
+
 
 	}
 	else
 	{
-		timeLightOn_first = (char*)TIMELIGHTON_FIRST_OVERWEEK;
-		timeLightOff_first = (char*)TIMELIGHTOFF_FIRST_OVERWEEK;
-		timeLightOn_second = (char*)TIMELIGHTON_SECOND_OVERWEEK;
-		timeLightOff_second = (char*)TIMELIGHTOFF_SECOND_OVERWEEK;
+		timeLightOn_first = timeLightOn_first_overWeek;
+		timeLightOff_first = timeLightOff_first_overWeek;
+		timeLightOn_second = timeLightOn_second_overWeek;
+		timeLightOff_second = timeLightOff_second_overWeek;
 	}
+
+	Serial.println("");
+	Serial.print("timeLightOn_first");
+	Serial.println(timeLightOn_first);
+	Serial.print("timeLightOn_second");
+	Serial.println(timeLightOn_second);
+	Serial.print("timeLightOff_first");
+	Serial.println(timeLightOff_first);
+	Serial.print("timeLightOff_second");
+	Serial.println(timeLightOff_second);
+
+
 
 	Time lightOn_first;
 	lightOn_first.date = rtc->getTime().date;
@@ -187,10 +220,12 @@ LIGHT_STATUS Light::isLightOn()
 
 	else if(unixActualTime > unixOffTime_first)
 	{
+		Serial.println("Light off");
 		return LIGHT_STATUS::LIGHT_OFF;
 	}
 	else if(unixActualTime > unixOnTime_first)
 	{
+		Serial.println("Light on");
 		return LIGHT_STATUS::LIGHT_ON;
 	}
 
