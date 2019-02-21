@@ -54,27 +54,23 @@ void Light::setLighOnOff()
 		Serial.println("light on");
 		setLightOn();
 	}
-	else if(isLightOn() == LIGHT_STATUS::LIGHT_OFF)
+	else
 	{
-		Serial.println("light off");
+		//Serial.println("light off");
 		setLightOff();
-	}
-	else //
-	{
-		// nothing to do
 	}
 }
 
 
 void Light::setLightOn()
 {
-	Serial.println("Light On\n");
+	//Serial.println("Light On\n");
 	digitalWrite(RELAIS2,ACTIVE);
 }
 
 void Light::setLightOff()
 {
-	Serial.println("Light Off\n");
+	//Serial.println("Light Off\n");
 	digitalWrite(RELAIS2,INACTIVE);
 }
 
@@ -124,7 +120,7 @@ LIGHT_STATUS Light::isLightOn()
 		timeLightOff_second = timeLightOff_second_overWeek;
 	}
 
-	Serial.println("");
+/*	Serial.println("");
 	Serial.print("timeLightOn_first");
 	Serial.println(timeLightOn_first);
 	Serial.print("timeLightOn_second");
@@ -132,7 +128,7 @@ LIGHT_STATUS Light::isLightOn()
 	Serial.print("timeLightOff_first");
 	Serial.println(timeLightOff_first);
 	Serial.print("timeLightOff_second");
-	Serial.println(timeLightOff_second);
+	Serial.println(timeLightOff_second);*/
 
 
 

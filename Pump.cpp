@@ -22,7 +22,7 @@ void Pump::setPumpOn()
 {
 	digitalWrite(RELAIS3,ACTIVE);
 	status = PUMP_STATUS::PUMP_ON;
-	Serial.println("Pump On");
+//	Serial.println("Pump On");
 
 }
 
@@ -30,7 +30,7 @@ void Pump::setPumpOff()
 {
 	digitalWrite(RELAIS3,INACTIVE);
 	status = PUMP_STATUS::PUMP_OFF;
-	Serial.println("Pump Off");
+//	Serial.println("Pump Off");
 }
 
 String Pump::getStatus()

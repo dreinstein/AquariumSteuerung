@@ -26,10 +26,10 @@
 	EthernetClient client;
 	IPAddress webServer(192, 168, 0, 2);
 	client.connect(webServer, 80);
-	Serial.println("setToWebServer");
+	//Serial.println("setToWebServer");
 	if(client.connected()){
 		tempSensors->requestTemperatures();
-		Serial.println("WebClient connected, send data");
+	//	Serial.println("WebClient connected, send data");
 		client.print("GET /status.php?");
 	    client.print("Temperature=");
 	    client.print(tempSensors->getTempCByIndex(0));
@@ -60,7 +60,7 @@ void Remote::getFromPort80()
 	server.begin();
 	bool isConnected = false;
 	client = server.available();
-	Serial.println("try to connect to webserver port 80");
+//	Serial.println("try to connect to webserver port 80");
 
 	if (client.available())
 	{
@@ -69,10 +69,10 @@ void Remote::getFromPort80()
 		     client.flush();
 		     isConnected = true;
 		}
-	    Serial.println("connected to port 80");
-	    if( client.find("GET /") )
+	  //  Serial.println("connected to port 80");
+	    if(client.find("GET /") )
 	    {
-	    	Serial.println("get new char from Ethernet");
+	    //	Serial.println("get new char from Ethernet");
 
 	    	char type=client.read();
 	    	bool abortReading = false;
@@ -80,7 +80,7 @@ void Remote::getFromPort80()
 	    	{
 	    		type = client.read();
 	    		remoteString += type;
-	    		Serial.println(remoteString);
+	    	//	Serial.println(remoteString);
 	    		abortReading = remoteAction(remoteString,&client, Port80);
 	    		if(remoteString.length() > 200)
 	    		{
@@ -135,7 +135,7 @@ void Remote::getTiming()
 	EthernetClient client;
 	IPAddress webServer(192, 168, 0, 2);
 	client.connect(webServer, 80);
-	Serial.println("setToWebServer fetch Timing");
+	//Serial.println("setToWebServer fetch Timing");
 	if(client.connected()){
 	client.print("GET /fetchTiming.php?");
 	client.println(" HTTP/1.1");
@@ -166,7 +166,7 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	{
 		hour = hour -1;
 		rtc->setTime(hour,rtc->getTime().min,rtc->getTime().sec);
-		Serial.println("set Wintertime");
+		//Serial.println("set Wintertime");
 		remoteString = "";
 		return true;
 	}
@@ -174,7 +174,7 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	{
 		hour = hour +1;
 		rtc->setTime(hour,rtc->getTime().min,rtc->getTime().sec);
-		Serial.println("set Summertime");
+		//Serial.println("set Summertime");
 		remoteString = "";
 		return true;
 	}
@@ -277,7 +277,7 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	else if(rString.endsWith(ENDTIMING))
 	{
 		//client->println("HTTP/1.1 205 OK");
-		Serial.println("Timeing transfered");
+	//	Serial.println("Timeing transfered");
 		setTiming(rString);
 		return true;
 	}
@@ -399,17 +399,11 @@ void Remote::sendTemperaturePort23(EthernetClient *client)
 
 bool Remote::synchronise()
 {
-	bool sync = false;
-	//Serial.print("actualise ");
+	Serial.print("time synchronise ");
 	//Serial.println(rtc->getTimeStr());
-
 	int i = 0;
 	while(i< 10)
 	{
-		if(sync)
-			break;
-
-
 		if(dateTime->isNewSync())
 		{
 			//Serial.print("Have new Synchronisation ");
@@ -421,19 +415,19 @@ bool Remote::synchronise()
 			//Serial.print("set the time ");
 			rtc->setTime(hours,minutes,seconds);
 
-			//Serial.print("The new received UTC time is ");
-			//Serial.print(hours);
-			//Serial.print(":");
-			//Serial.print(minutes);
-			//Serial.print(":");
-			//Serial.println(seconds);
+			Serial.print("The new received UTC time is ");
+			Serial.print(hours);
+			Serial.print(":");
+			Serial.print(minutes);
+			Serial.print(":");
+			Serial.println(seconds);
 			//rtc.setTime(hours,minutes,seconds);
-			sync = true;
+			return true;
 		}
-	delay(500);
 	i = i+1;
+	delay(500);
 	}
-	return sync;
+	return false;
 }
 
 void Remote::setTiming(String timeString)
@@ -482,7 +476,7 @@ void Remote::setTiming(String timeString)
 	str = timeString.substring(index_1+1,index_2);
 	str.toCharArray(ctimeLightOff_secondWeekend,10);
 
-	Serial.println(timeString);
+/*	Serial.println(timeString);
 	Serial.println(ctimeLightOn_firstOverweek);
 	Serial.println(ctimeLightOn_secondOverweek);
 	Serial.println(ctimeLightOff_firstOverweek);
@@ -490,7 +484,7 @@ void Remote::setTiming(String timeString)
 	Serial.println(ctimeLightOn_firstWeekend);
 	Serial.println(ctimeLightOn_secondWeekend);
 	Serial.println(ctimeLightOff_firstWeekend);
-	Serial.println(ctimeLightOff_secondWeekend);
+	Serial.println(ctimeLightOff_secondWeekend);*/
 
 	light->setTiming(ctimeLightOn_firstOverweek, ctimeLightOff_firstOverweek, ctimeLightOn_secondOverweek, ctimeLightOff_secondOverweek,
 			ctimeLightOn_firstWeekend, ctimeLightOff_firstWeekend, ctimeLightOn_secondWeekend, ctimeLightOff_secondWeekend);

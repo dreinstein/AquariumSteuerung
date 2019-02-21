@@ -99,21 +99,21 @@ bool DateTime:: isNewSync()
 	if(secsSince1900 > 0){
 
 
-		Serial.print("Seconds since Jan 1 1900 = ");
-		Serial.println(secsSince1900);
+		//Serial.print("Seconds since Jan 1 1900 = ");
+		//Serial.println(secsSince1900);
 
 		// now convert NTP time into everyday time:
-		Serial.print("Unix time = ");
+		//Serial.print("Unix time = ");
 		// Unix time starts on Jan 1 1970. In seconds, that's 2208988800:
 		const unsigned long seventyYears = 2208988800UL;
 		// subtract seventy years:
 		unsigned long epoch = secsSince1900 - seventyYears;
 		// print Unix time:
-		Serial.println(epoch);
+		//Serial.println(epoch);
 
 
 		// print the hour, minute and second:
-		Serial.print("The UTC time is ");       // UTC is the time at Greenwich Meridian (GMT)
+		//Serial.print("The UTC time is ");       // UTC is the time at Greenwich Meridian (GMT)
 		hour = ((epoch  % 86400L) / 3600);
 		Serial.print((epoch  % 86400L) / 3600); // print the hour (86400 equals secs per day)
 		Serial.print(':');
@@ -145,20 +145,20 @@ int DateTime::getTimeDiff(Time time)
 {
 	// it is wintertime as default
 	int timeDiff = 1;
-	Serial.print("get to Function getTimeDiff month is: ");
-	Serial.println(time.mon);
+//	Serial.print("get to Function getTimeDiff month is: ");
+//	Serial.println(time.mon);
 	// timechange every mach and octoer
 	// other month not critical
 	// between April and September it is summerTime, add two hours
 	if((time.mon > MARCH) && (time.mon < OCTOBER))
 	{
-		Serial.println("after march and before october, no change of time ");
+	//	Serial.println("after march and before october, no change of time ");
 		return 2;
 	}
 	// between january and February and november and december it is wintertime add one hour
 	else if ((time.mon < MARCH) && (time.mon > OCTOBER))
 	{
-		Serial.println("before march and after october, no change of time ");
+	//	Serial.println("before march and after october, no change of time ");
 		return 1;
 	}
 
@@ -170,21 +170,21 @@ int DateTime::getTimeDiff(Time time)
 		// search year
 		if(summerWinterTimeArray[yearIndex][0]==time.year)
 		{
-			Serial.println("it is the year ");
+		//	Serial.println("it is the year ");
 			// if it is october go one arry further, and it is wintertime
 			if(time.mon  == OCTOBER)
 			{
-				Serial.println("it is october ");
+				//Serial.println("it is october ");
 				// second half of the year
-				Serial.println("it is wintertime ");
+				//Serial.println("it is wintertime ");
 				summerTime = false;
 			}
 			break;
 		}
 	}
 
-	Serial.println(summerWinterTimeArray[yearIndex][2]);
-	Serial.println(time.date);
+//	Serial.println(summerWinterTimeArray[yearIndex][2]);
+//	Serial.println(time.date);
 	// it is either october or march, so get the day
 	if(time.date == summerWinterTimeArray[yearIndex][2])
 	{
@@ -192,25 +192,25 @@ int DateTime::getTimeDiff(Time time)
 		// summertime and after 2 oclock, go for two hours
 		if(summerTime && (time.hour > CHANGEHOURE))
 		{
-			Serial.println("summerTime, timeDiff 2");
+			//Serial.println("summerTime, timeDiff 2");
 			timeDiff = 2;
 		}
 		// wintertime and after 2 oclock, go for one hours
 		else if(!summerTime && (time.hour > CHANGEHOURE))
 		{
-			Serial.println("wintertime, timeDiff 1");
+			//Serial.println("wintertime, timeDiff 1");
 			timeDiff = 1;
 		}
 		// summertime and 2 oclock or before, go for two hours (it is still wintertime)
 		else if(summerTime)
 		{
-			Serial.println("timeDiff 1");
+			//Serial.println("timeDiff 1");
 			timeDiff = 1;
 		}
 		//
 		else
 		{
-			Serial.println("else, timeDiff 2");
+			//Serial.println("else, timeDiff 2");
 			timeDiff = 2;
 		}
 	}

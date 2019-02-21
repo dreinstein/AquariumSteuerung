@@ -32,7 +32,7 @@ void Heater::setHeaterOnOff(float temperature)
 	}
 	else if(heaterStatus == HEATER_STATUS::HEATER_ON)
 	{
-		Serial.println("Heaterstatus on");
+		//Serial.println("Heaterstatus on");
 		if(temperature >= WATERTEMP_HEATEROFF)
 		{
 			setHeaterOff();

@@ -51,7 +51,7 @@ private:
 	bool remoteAction(String rString,EthernetClient *client, Port port);
 	void sendTemperaturePort23(EthernetClient *client);
 	void sendTemperaturePort80(EthernetClient *client);
-	void Remote::setTiming(String timeString);
+	void setTiming(String timeString);
 
 	const String WINTER  = "winter";
 	const String SOMMER = "sommer";

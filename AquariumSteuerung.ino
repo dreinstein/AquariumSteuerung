@@ -114,16 +114,20 @@ void setup()
 
 //	dateTime = new DateTime();
 
-	//rtc.setDate(28,10,2018);
-	//rtc.setDOW(6);
+	//rtc.setDate(10,02,2019);
+	//rtc.setDOW(7);
 //	rtc.setTime(18,5,00);
 
 	delay(1000);
 
 //	Serial.println("synchronise");
 	remote->synchronise();
-	remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
 	remote->getTiming();
+	light->setLighOnOff();
+	pump->setPumpOn();
+	Serial.println(light->getStatus());
+	remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
+
 }
 
 
@@ -134,7 +138,7 @@ void loop()
 	//Serial.println("loop begin");
 	//lcd.clear();
 	//lcd.print(rtc.getTemp());
-	delay(1000);
+//	delay(1000);
 	//rtc.getDateStr();
 //	Serial.print(rtc.getDateStr());
 
@@ -142,7 +146,7 @@ void loop()
 	display->setTemperature();
 
 
-	delay(DELAYTIME_BASE);
+	//delay(DELAYTIME_BASE);
 	//Serial.println("loop begin");
 
 	if(TO_ACTUALISE(refresh,TOGGLE_TIME_DISPLAY))
@@ -172,17 +176,17 @@ void loop()
 		}
 	}
 	refresh = refresh+1;
-
+   //Serial.println("Loop");
 	if(refresh> REFRESHVARIABLE_MAX)
 	{
 		refresh = 0;
 	}
 
 //	Serial.println("to actualise");
-	if(TO_ACTUALISE(refresh,ACTUALISE_NTC_MULTIPLIER))
+/*	if(TO_ACTUALISE(refresh,ACTUALISE_NTC_MULTIPLIER))
 	{
 		remote->synchronise();
-	}
+	}*/
 	//remote->getFromPort23();
 	remote->getFromPort80();
 	if(TO_ACTUALISE(refresh,ACTUALISE_REMOTE_MULTIPLIER))

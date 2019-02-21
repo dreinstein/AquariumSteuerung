@@ -39,6 +39,7 @@ public:
 	void setLightOn();
 	void setLightOff();
 	String getStatus();
+
 	void setTiming(char* _timeLightOn_first_overWeek, char* _timeLightOff_first_overWeek, char* _timeLightOn_second_overWeek,
 			char*_timeLightOff_second_overWeek, char* _timeLightOn_first_weekEnd,char* _timeLightOff_first_weekEnd,
 			char* _timeLightOn_second_weekEnd, char* _timeLightOff_second_weekEnd);
