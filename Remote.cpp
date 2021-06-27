@@ -7,6 +7,7 @@
 
 #include "Remote.h"
 #include <Ethernet.h>
+#include <DallasTemperature.h>
 #include "Light.h"
 
 
@@ -156,7 +157,7 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 	 * sommer - Sommerzeit +1 h
 	 * sync - mit Timeserver sychronisieren
 	 * service - Servicemode einstellen, temperatur und pumpe aus, Licht an
-	 * normal  - Normalmode einstellen, d.h SErviceMode zurückstellen, tempertur, pumpe,licht an (abhängig Uhrzeit)
+	 * normal  - Normalmode einstellen, d.h SErviceMode zurï¿½ckstellen, tempertur, pumpe,licht an (abhï¿½ngig Uhrzeit)
 	 */
 
 	String remoteString = "";
@@ -365,7 +366,6 @@ void Remote::sendTemperaturePort80(EthernetClient *client)
 	    client->println("</html>");
 		client->stop();
 		Serial.println("client stopped");
-/*
 		Serial.println("HTTP/1.1 200 OK");
 		Serial.println("Content-Type: text/html");
 		Serial.println();
@@ -414,6 +414,7 @@ bool Remote::synchronise()
 			hours = hours + diff;
 			//Serial.print("set the time ");
 			rtc->setTime(hours,minutes,seconds);
+			rtc->setDOW();
 
 			Serial.print("The new received UTC time is ");
 			Serial.print(hours);

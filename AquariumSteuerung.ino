@@ -4,7 +4,7 @@
 
 
 #include <LiquidCrystal_I2C.h>
-#include <ds3231.h>
+#include <DS3231.h>
 #include <Ethernet.h>
 #include <SPI.h>
 #include <DallasTemperature.h>
@@ -112,18 +112,19 @@ void setup()
 	heater = new Heater();
 	pump = new Pump();
 
-//	dateTime = new DateTime();
-
-	//rtc.setDate(10,02,2019);
-	//rtc.setDOW(7);
-//	rtc.setTime(18,5,00);
+	// set date manually if arduino was inactive to long
+	// do not need it anymore with version 4.0
+	//rtc.setDate(13,05,2021);
+	//rtc.setDOW(1);
 
 	delay(1000);
 
 //	Serial.println("synchronise");
 	remote->synchronise();
 	remote->getTiming();
-	light->setLighOnOff();
+	// deactivate Light on/off due of juwel lightning, instead set light on
+//	light->setLighOnOff();
+	light->setLightOn();
 	pump->setPumpOn();
 	Serial.println(light->getStatus());
 	remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
@@ -142,8 +143,8 @@ void loop()
 	//rtc.getDateStr();
 //	Serial.print(rtc.getDateStr());
 
-	display->setTime();
-	display->setTemperature();
+	//display->setTime();
+//	display->setTemperature();
 
 
 	//delay(DELAYTIME_BASE);
@@ -152,6 +153,7 @@ void loop()
 	if(TO_ACTUALISE(refresh,TOGGLE_TIME_DISPLAY))
 	{
 		display->setTemperature();
+		display->setTime();
 	}
 
 
@@ -169,7 +171,9 @@ void loop()
 			if(TO_ACTUALISE(refresh,ACTUALISE_LIGHT_MULTiPLIER))
 			{
 			//	Serial.println("set light on Off");
-				light->setLighOnOff();
+
+				// deactivate light regulation due of juwel lightning
+				//light->setLighOnOff();
 			//	Serial.println("set light on off done");
 				pump->setPumpOn();
 			}

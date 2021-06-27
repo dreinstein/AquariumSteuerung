@@ -8,7 +8,7 @@
 #ifndef LIGHT_H_
 #define LIGHT_H_
 
-#include <ds3231.h>
+#include <DS3231.h>
 
 // default Timesettings for overweek and weekend
 #define TIMELIGHTON_FIRST_OVERWEEK   "07:00:00"

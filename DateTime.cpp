@@ -6,8 +6,8 @@
  */
 
 //#include "Arduino.h"
-#include <EthernetUdp.h>
 #include <Ethernet.h>
+
 
 #include "DateTime.h"
 
@@ -20,25 +20,50 @@ unsigned int localPort = 8888;       // local port to listen for UDP packets
 
 
 DateTime::DateTime() {
-	summerWinterTimeArray[0][0] = 2018;
+
+	summerWinterTimeArray[0][0] = 2020;
 	summerWinterTimeArray[0][1] = 10;
-	summerWinterTimeArray[0][2] = 28;
+	summerWinterTimeArray[0][2] = 25;
 
-	summerWinterTimeArray[1][0] = 2019;
-	summerWinterTimeArray[1][1] = 3;
-	summerWinterTimeArray[1][2] = 31;
+	summerWinterTimeArray[1][0] = 2021;
+	summerWinterTimeArray[1][1] = 03;
+	summerWinterTimeArray[1][2] = 28;
 
-	summerWinterTimeArray[2][0] = 2019;
+	summerWinterTimeArray[2][0] = 2021;
 	summerWinterTimeArray[2][1] = 10;
-	summerWinterTimeArray[2][2] = 27;
+	summerWinterTimeArray[2][2] = 31;
 
-	summerWinterTimeArray[3][0] = 2020;
-	summerWinterTimeArray[3][1] = 3;
-	summerWinterTimeArray[3][2] = 29;
+	summerWinterTimeArray[3][0] = 2022;
+	summerWinterTimeArray[3][1] = 03;
+	summerWinterTimeArray[3][2] = 27;
 
-	summerWinterTimeArray[4][0] = 2020;
+	summerWinterTimeArray[4][0] = 2022;
 	summerWinterTimeArray[4][1] = 10;
-	summerWinterTimeArray[4][2] = 25;
+	summerWinterTimeArray[4][2] = 30;
+
+	summerWinterTimeArray[5][0] = 2023;
+	summerWinterTimeArray[5][1] = 03;
+	summerWinterTimeArray[5][2] = 26;
+
+	summerWinterTimeArray[6][0] = 2023;
+	summerWinterTimeArray[6][1] = 10;
+	summerWinterTimeArray[6][2] = 29;
+
+	summerWinterTimeArray[7][0] = 2024;
+	summerWinterTimeArray[7][1] = 03;
+	summerWinterTimeArray[7][2] = 31;
+
+	summerWinterTimeArray[8][0] = 2024;
+	summerWinterTimeArray[8][1] = 10;
+	summerWinterTimeArray[8][2] = 27;
+
+	summerWinterTimeArray[9][0] = 2025;
+	summerWinterTimeArray[9][1] = 03;
+	summerWinterTimeArray[9][2] = 30;
+
+	summerWinterTimeArray[10][0] = 2025;
+	summerWinterTimeArray[10][1] = 10;
+	summerWinterTimeArray[10][2] = 26;
 
 
 	hour=0;

@@ -8,7 +8,7 @@
 #ifndef PUMP_H_
 #define PUMP_H_
 
-#include <ds3231.h>
+#include <DS3231.h>
 
 enum class PUMP_STATUS
 {

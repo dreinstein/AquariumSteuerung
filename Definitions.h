@@ -3,41 +3,22 @@
 
 #include "Arduino.h"
 
-// ARDUINO IN/OUT
-#define RELAIS2       9     /// 6   //LIGHT  //OUT, gelb LED, graues Kabel
-#define RELAIS3       12    /// 7    //PUMP  //OUT, rote LED , orange Kabel
-#define RELAIS4       11    /// 8    //HEATER //OUT, blau LED. yellow Kabel,
-#define TEMPSENSOR    8	    //TempSensor  //IN
-#define SERVICEBUTTON 7     //ServiceButton  hight: Pump, TempSensor out//IN
-#define ONOFFBUTTON   6    //ONOFFBUTTON +																														v     hight: Pump, TempSensor, Light out //IN
-//#define LCD_RS		  12
-//#define LCD_ENABLE	  13
-//#define LCD_D0		  5
-//#define LCD_D1		  4
-//#define LCD_D2		  3
-//#define LCD_D3		  2
-
-
-// SDA PinA4
-// SLC PinA5
-
-
-// Belegung serieller Anschluss Relais
-// Pin1  5V rot
-// pin5  gnd sw
-// pin6  light grau
-// pin7 pump orange
-// pin8 heater yellow
-
+// ARDUINO IN/OUT     PIN       Serial     Function
+#define RELAIS2       9     /// 6          LIGHT
+#define RELAIS3       12    /// 7          PUMP
+#define RELAIS4       11    /// 8          HEATER ,
+#define TEMPSENSOR    8	                 //TempSensor
+#define SERVICEBUTTON 7                  // Pump, Heater
+#define ONOFFBUTTON   6                  //Pump, Heater, Light																														v     hight: Pump, TempSensor, Light out //IN
 
 // Relais1 light
 // Relais2 pump
 // Relais3 heater
 
-// Belegung serielle Schnittstelle
+// interface serial
 // 1 - 5V
 // 5 - Ground
-// 6,7,8,9 Daten
+// 6,7,8 datas, see above
 
 
 // LCD positions

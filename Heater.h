@@ -5,7 +5,7 @@
  *      Author: Udo
  */
 
-#include <ds3231.h>
+#include <DS3231.h>
 
 #ifndef HEATER_H_
 #define HEATER_H_

@@ -9,7 +9,7 @@
 #define REMOTE_H_
 
 #include "Arduino.h"
-#include <ds3231.h>
+#include <DS3231.h>
 #include <Ethernet.h>
 #include <DallasTemperature.h>
 #include "DateTime.h"

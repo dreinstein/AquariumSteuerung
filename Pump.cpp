@@ -7,7 +7,7 @@
 
 #include "Pump.h"
 #include "Definitions.h"
-#include "arduino.h"
+#include "Arduino.h"
 
 Pump::Pump() {
 	// TODO Auto-generated constructor stub
