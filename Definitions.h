@@ -9,7 +9,7 @@
 #define RELAIS4       11    /// 8          HEATER ,
 #define TEMPSENSOR    8	                 //TempSensor
 #define SERVICEBUTTON 7                  // Pump, Heater
-#define ONOFFBUTTON   6                  //Pump, Heater, Light																														v     hight: Pump, TempSensor, Light out //IN
+#define ONOFFBUTTON   6                  //Pump, Heater (same as light is now controlled by juwel control																													v     hight: Pump, TempSensor, Light out //IN
 
 // Relais1 light
 // Relais2 pump

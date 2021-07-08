@@ -8,13 +8,11 @@
 #include "Remote.h"
 #include <Ethernet.h>
 #include <DallasTemperature.h>
-#include "Light.h"
 
 
- Remote::Remote(DS3231* _rtc, DallasTemperature *_tempSensor, Light* _light)
+ Remote::Remote(DS3231* _rtc, DallasTemperature *_tempSensor)
  {
 	 rtc = _rtc;
-	 light = _light;
 	 tempSensors = _tempSensor;
 	 dateTime = new DateTime();
 	 serviceMode = false;
@@ -35,8 +33,6 @@
 	    client.print("Temperature=");
 	    client.print(tempSensors->getTempCByIndex(0));
 	    client.print("&Light=");
-	    client.print("'");
-	    client.print(lightStatus);
 	    client.print("'");
 	    client.print("&Pump=");
 	    client.print("'");
@@ -275,13 +271,6 @@ bool Remote::remoteAction(String rString,EthernetClient *client, Port port)
 		sendoutputPinState(12,client);
 		return true;
 	}
-	else if(rString.endsWith(ENDTIMING))
-	{
-		//client->println("HTTP/1.1 205 OK");
-	//	Serial.println("Timeing transfered");
-		setTiming(rString);
-		return true;
-	}
 	return false;
 }
 
@@ -431,66 +420,6 @@ bool Remote::synchronise()
 	return false;
 }
 
-void Remote::setTiming(String timeString)
-{
-	String delimiter = "&";
-
-	char* ctimeLightOn_firstOverweek= new char[10];
-	char* ctimeLightOn_secondOverweek= new char[10];
-	char* ctimeLightOff_firstOverweek= new char[10];
-	char* ctimeLightOff_secondOverweek= new char[10];
-	char* ctimeLightOn_firstWeekend= new char[10];
-	char* ctimeLightOn_secondWeekend= new char[10];
-	char* ctimeLightOff_firstWeekend= new char[10];
-	char* ctimeLightOff_secondWeekend= new char[10];
-
-
-	int index_1 = timeString.indexOf(delimiter);
-	String str = timeString.substring(0,index_1);
-	str.toCharArray(ctimeLightOn_firstOverweek,10);
-
-	int index_2 = timeString.indexOf(delimiter, index_1+1);
-	str = timeString.substring(index_1+1,index_2);
-	str.toCharArray(ctimeLightOn_secondOverweek,10);
-
-	index_1 = timeString.indexOf(delimiter, index_2+1);
-	str = timeString.substring(index_2+1,index_1);
-	str.toCharArray(ctimeLightOff_firstOverweek,10);
-
-	index_2 = timeString.indexOf(delimiter, index_1+1);
-	str = timeString.substring(index_1+1,index_2);
-	str.toCharArray(ctimeLightOff_secondOverweek,10);
-
-	index_1 = timeString.indexOf(delimiter,index_2+1);
-	str = timeString.substring(index_2+1,index_1);
-	str.toCharArray(ctimeLightOn_firstWeekend,10);
-
-	index_2 = timeString.indexOf(delimiter, index_1+1);
-	str = timeString.substring(index_1+1,index_2);
-	str.toCharArray(ctimeLightOn_secondWeekend,10);
-
-	index_1 = timeString.indexOf(delimiter, index_2+1);
-	str = timeString.substring(index_2+1,index_1);
-	str.toCharArray(ctimeLightOff_firstWeekend,10);
-
-	index_2 = timeString.indexOf(delimiter, index_1+1);
-	str = timeString.substring(index_1+1,index_2);
-	str.toCharArray(ctimeLightOff_secondWeekend,10);
-
-/*	Serial.println(timeString);
-	Serial.println(ctimeLightOn_firstOverweek);
-	Serial.println(ctimeLightOn_secondOverweek);
-	Serial.println(ctimeLightOff_firstOverweek);
-	Serial.println(ctimeLightOff_secondOverweek);
-	Serial.println(ctimeLightOn_firstWeekend);
-	Serial.println(ctimeLightOn_secondWeekend);
-	Serial.println(ctimeLightOff_firstWeekend);
-	Serial.println(ctimeLightOff_secondWeekend);*/
-
-	light->setTiming(ctimeLightOn_firstOverweek, ctimeLightOff_firstOverweek, ctimeLightOn_secondOverweek, ctimeLightOff_secondOverweek,
-			ctimeLightOn_firstWeekend, ctimeLightOff_firstWeekend, ctimeLightOn_secondWeekend, ctimeLightOff_secondWeekend);
-
-}
 
 
 

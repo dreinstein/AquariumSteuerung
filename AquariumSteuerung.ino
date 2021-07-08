@@ -12,7 +12,6 @@
 #include <OneWire.h>
 #include "Definitions.h"
 #include "Display.h"
-#include "Light.h"
 #include "Heater.h"
 #include "Pump.h"
 #include "DateTime.h"
@@ -42,7 +41,6 @@ bool setOff();
 bool connected;
 
 class Display *display;
-class Light *light;
 class Heater *heater;
 class Pump *pump;
 class DateTime* dateTime;
@@ -85,10 +83,6 @@ void setup()
 
 
 	refresh = 0;
-	//Serial.println("initialised");
-
-	// start the Ethernet connection and the server:
-
 	Ethernet.begin(mac, ip);
 	Serial.begin(9600);
 	while(!Serial)
@@ -106,8 +100,7 @@ void setup()
 	pinMode(ONOFFBUTTON,INPUT_PULLUP);
 	pinMode(TEMPSENSOR,INPUT);
 
-	light = new Light(&rtc);
-	remote = new Remote(&rtc,&sensors,light);
+	remote = new Remote(&rtc,&sensors);
 	display = new Display(&sensors,&lcd,&rtc);
 	heater = new Heater();
 	pump = new Pump();
@@ -122,12 +115,8 @@ void setup()
 //	Serial.println("synchronise");
 	remote->synchronise();
 	remote->getTiming();
-	// deactivate Light on/off due of juwel lightning, instead set light on
-//	light->setLighOnOff();
-	light->setLightOn();
 	pump->setPumpOn();
-	Serial.println(light->getStatus());
-	remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
+	remote->sentToWebServer("N/A",pump->getStatus(),heater->getStatus());
 
 }
 
@@ -135,28 +124,11 @@ void setup()
 // The loop function is called in an endless loop
 void loop()
 {
-
-	//Serial.println("loop begin");
-	//lcd.clear();
-	//lcd.print(rtc.getTemp());
-//	delay(1000);
-	//rtc.getDateStr();
-//	Serial.print(rtc.getDateStr());
-
-	//display->setTime();
-//	display->setTemperature();
-
-
-	//delay(DELAYTIME_BASE);
-	//Serial.println("loop begin");
-
 	if(TO_ACTUALISE(refresh,TOGGLE_TIME_DISPLAY))
 	{
 		display->setTemperature();
 		display->setTime();
 	}
-
-
 
 	if(!setOff())
 	{
@@ -170,11 +142,6 @@ void loop()
 
 			if(TO_ACTUALISE(refresh,ACTUALISE_LIGHT_MULTiPLIER))
 			{
-			//	Serial.println("set light on Off");
-
-				// deactivate light regulation due of juwel lightning
-				//light->setLighOnOff();
-			//	Serial.println("set light on off done");
 				pump->setPumpOn();
 			}
 		}
@@ -186,16 +153,10 @@ void loop()
 		refresh = 0;
 	}
 
-//	Serial.println("to actualise");
-/*	if(TO_ACTUALISE(refresh,ACTUALISE_NTC_MULTIPLIER))
-	{
-		remote->synchronise();
-	}*/
-	//remote->getFromPort23();
 	remote->getFromPort80();
 	if(TO_ACTUALISE(refresh,ACTUALISE_REMOTE_MULTIPLIER))
 	{
-		remote->sentToWebServer(light->getStatus(),pump->getStatus(),heater->getStatus());
+		remote->sentToWebServer("N/A",pump->getStatus(),heater->getStatus());
 	}
 }
 
@@ -208,7 +169,6 @@ bool setServiceMode()
 	if((digitalRead(SERVICEBUTTON)==INACTIVE) || serviceModeOn)  //switch on
 	{
 		//Serial.println("ServiceMode set");
-		light->setLightOn();
 		pump->setPumpOff();
 		heater->setHeaterOff();
 		retVal=true;
@@ -221,7 +181,6 @@ bool setOff()
 	bool retVal = false;
 	if(digitalRead(ONOFFBUTTON)==INACTIVE) // Switch on
 	{
-		light->setLightOff();
 		pump->setPumpOff();
 		heater->setHeaterOff();
 		retVal=true;

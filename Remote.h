@@ -14,9 +14,6 @@
 #include <DallasTemperature.h>
 #include "DateTime.h"
 
-class Light;
-
-
 
 
 
@@ -28,7 +25,7 @@ public:
 		Port80 = 80
 	};
 
-	Remote(DS3231* _rtc,DallasTemperature *_tempSensor, Light *_alight);
+	Remote(DS3231* _rtc,DallasTemperature *_tempSensor);
 	~Remote();
 	void sentToWebServer(String lightStatus, String pumpStatus, String heaterStatus);
 	void getFromPort80();
@@ -41,7 +38,6 @@ private:
 	void sendoutputPinState(int pin,EthernetClient *client);
 	void readTillEnd(EthernetClient *client);
 	DS3231 *rtc;
-	Light *light;
 	class DateTime* dateTime;
 	DallasTemperature *tempSensors;
 	String remoteString;

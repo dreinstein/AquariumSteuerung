@@ -13,7 +13,6 @@
 #define WATERTEMP_HEATEROFF    31
 #define WATERTEMP_HEATERON     29
 
-// stati for light
 enum class HEATER_STATUS
 {
 	HEATER_ON=0,
